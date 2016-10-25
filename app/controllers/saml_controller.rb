@@ -19,7 +19,6 @@ class SamlController < ApplicationController
       authorize_failure  # This method shows an error message
     end
   end
-
   private
 
   def authorize_failure
@@ -36,9 +35,10 @@ class SamlController < ApplicationController
     settings.idp_sso_target_url             = "http://localhost:3000/sso/sign_in"
 
     #logout later
-    #settings.idp_slo_target_url             = "https://app.onelogin.com/trust/saml2/http-redirect/slo/#{OneLoginAppId}"
-    settings.idp_cert_fingerprint           = '69f7bb9608e6619a79050e38493d16088bf87b57' #from ~/.ssh/saml.pem
-    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2000/09/xmldsig#sha1"
+    settings.idp_slo_target_url             = "http://localhost:3000/sso/sign_out"
+    settings.idp_cert_fingerprint           = '9e9d133aeeb1734606e6ad9e95e8f37c87483e4e78ce9b130caef0d87a9b5042'
+    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
 
     # Optional for most SAML IdPs
