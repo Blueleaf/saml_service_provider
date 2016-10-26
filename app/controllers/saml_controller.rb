@@ -19,7 +19,12 @@ class SamlController < ApplicationController
       authorize_failure  # This method shows an error message
     end
   end
+
   private
+
+  def fetch_idp_metadata
+    OneLogin::RubySaml::IdpMetadataParser.new.parse_remote('http://localhost:3000/sso/metadata.xml')
+  end
 
   def authorize_failure
     render text: 'AUTHORIZED FAILED'
