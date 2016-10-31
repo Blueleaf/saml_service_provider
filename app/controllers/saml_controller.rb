@@ -6,9 +6,6 @@ class SamlController < ApplicationController
 
   def consume
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], :settings => saml_settings)
-
-    # We validate the SAML Response and check if the user already exists in the system
-
     if response.is_valid?
        # authorize_success, log the user
        session[:userid] = response.nameid
@@ -36,13 +33,12 @@ class SamlController < ApplicationController
     settings.assertion_consumer_service_url = "http://#{request.host}:3001/sso/consume"
     settings.issuer                         = "http://#{request.host}:3001/"
 
-    settings.idp_entity_id                  = "http://localhost:3000/sso/sign_in"
-    settings.idp_sso_target_url             = "http://localhost:3000/sso/sign_in"
-
+    settings.idp_entity_id                  = "https://staging.sandbox.blueleaf.com/sso/sign_in" #this must match the sso/sign_in url in idp
+    settings.idp_sso_target_url             = "https://staging.sandbox.blueleaf.com/sso/sign_in"
     #logout later
     settings.idp_slo_target_url             = "http://localhost:3000/sso/sign_out"
-    settings.idp_cert_fingerprint           = '9e9d133aeeb1734606e6ad9e95e8f37c87483e4e78ce9b130caef0d87a9b5042'
-    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+    settings.idp_cert_fingerprint           = '05a10aef2085c12d746c4a14ca5f2c5c2f48678f'
+    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha1"
 
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
 
