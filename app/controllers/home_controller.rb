@@ -1,12 +1,10 @@
 class HomeController < ApplicationController
-  before_filter :verify_logged_in
   def index
 
   end
 
-  private
-
-  def verify_logged_in
-    current_user || (raise "Not Logged In")
+  def signout
+    reset_session
+    redirect_to root_path
   end
 end

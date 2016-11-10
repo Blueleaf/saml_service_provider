@@ -12,4 +12,10 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user
+
+  def authenticated?
+    current_user.present?
+  end
+
+  helper_method :authenticated?
 end
