@@ -8,8 +8,8 @@ class SamlController < ApplicationController
     response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], :settings => saml_settings)
     if response.is_valid?
       # authorize_success, log the user
-      session[:nameid] = response.nameid
       session[:attributes] = response.attributes
+      session[:attributes][:nameid] = response.nameid
       redirect_to root_path
     else
       authorize_failure  # This method shows an error message
@@ -36,7 +36,7 @@ class SamlController < ApplicationController
     settings.idp_sso_target_url             = "http://localhost:3000/sso/sign_in"
     #logout later
     settings.idp_slo_target_url             = "http://localhost:3000/sso/sign_out"
-    settings.idp_cert_fingerprint           = '9e9d133aeeb1734606e6ad9e95e8f37c87483e4e78ce9b130caef0d87a9b5042'
+    settings.idp_cert_fingerprint           = ENV['SAML_IDP_FINGERPRINT']
     settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
 
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"

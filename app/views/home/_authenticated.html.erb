@@ -22,27 +22,13 @@
   <div class="container">
     <h1 class="display-3">Hello, <%= current_user.email %></h1>
     <b>SSO with Blueleaf as IdP</b>
-    <p>Below is the attributes collected from Blueleaf</p>
-
-    <div class="row">
-      <div class="col-xs-4">NameId</div>
-      <div class="col-xs-8"><b><%= current_user.nameid %></b></div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-4">Email</div>
-      <div class="col-xs-8"><b><%= current_user.email %></b></div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-4">Full Name</div>
-      <div class="col-xs-8"><b><%= current_user.full_name %></b></div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-4">Role</div>
-      <div class="col-xs-8"><b><%= current_user.role %></b></div>
-    </div>
+    <p>Below are the attributes collected from Blueleaf</p>
+    <% session[:attributes].each do |k,v| %>
+      <div class="row">
+        <div class="col-xs-4"><%= k %></div>
+        <div class="col-xs-8"><b><%= v %></b></div>
+      </div>
+    <% end %>
   </div>
 </div>
 
