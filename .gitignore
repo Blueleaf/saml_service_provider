@@ -20,6 +20,6 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-config/secret.rb
+config/initializers/secret.rb
 .ruby-version
 .ruby-gemset

@@ -20,6 +20,7 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
   <div class="container">
+    View source for complete XML SAMLResponse
     <h1 class="display-3">Hello, <%= current_user.email %></h1>
     <b>SSO with Blueleaf as IdP</b>
     <p>Below are the attributes collected from Blueleaf</p>
@@ -40,3 +41,6 @@
     <p>&copy; Company 2016</p>
   </footer>
 </div> <!-- /container -->
+<!--
+ <%= Nokogiri::XML(@response.response).to_s.html_safe %>
+-->

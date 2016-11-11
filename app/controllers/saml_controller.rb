@@ -5,12 +5,12 @@ class SamlController < ApplicationController
   end
 
   def consume
-    response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], :settings => saml_settings)
-    if response.is_valid?
+    @response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], :settings => saml_settings)
+    if @response.is_valid?
       # authorize_success, log the user
-      session[:attributes] = response.attributes
-      session[:attributes][:nameid] = response.nameid
-      redirect_to root_path
+      session[:attributes] = @response.attributes
+      session[:attributes][:nameid] = @response.nameid
+      render 'home/index'
     else
       authorize_failure  # This method shows an error message
     end
