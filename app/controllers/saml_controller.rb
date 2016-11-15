@@ -8,8 +8,9 @@ class SamlController < ApplicationController
     @response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], :settings => saml_settings)
     if @response.is_valid?
       # authorize_success, log the user
-      session[:attributes] = @response.attributes
+      session[:attributes]          = @response.attributes
       session[:attributes][:nameid] = @response.nameid
+      session[:nameid]              = @response.nameid
       render 'home/index'
     else
       authorize_failure  # This method shows an error message
