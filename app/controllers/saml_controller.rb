@@ -5,8 +5,8 @@ class SamlController < ApplicationController
   end
 
   def consume
-    @response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], :settings => saml_settings)
-    if @response.is_valid?
+    response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], :settings => saml_settings)
+    if response.is_valid?
       # authorize_success, log the user
       session[:attributes]          = @response.attributes
       session[:attributes][:nameid] = @response.nameid
@@ -19,8 +19,12 @@ class SamlController < ApplicationController
 
   private
 
-  def fetch_idp_metadata
-    OneLogin::RubySaml::IdpMetadataParser.new.parse_remote('http://localhost:3000/sso/metadata.xml')
+  def fetch_idp_metadata(settings)
+    OneLogin::RubySaml::IdpMetadataParser.new.parse_remote(
+      'http://localhost:3000/sso/metadata.xml',
+      true,
+      settings: settings
+    )
   end
 
   def authorize_failure
@@ -29,18 +33,11 @@ class SamlController < ApplicationController
 
   def saml_settings
     settings = OneLogin::RubySaml::Settings.new
+    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+    settings = fetch_idp_metadata(settings)
 
     settings.assertion_consumer_service_url = "http://#{request.host}:3001/sso/consume"
     settings.issuer                         = "http://#{request.host}:3001/"
-
-    settings.idp_entity_id                  = "http://localhost:3000/sso/sign_in" #this must match the sso/sign_in url in idp
-    settings.idp_sso_target_url             = "http://localhost:3000/sso/sign_in"
-    #logout later
-    settings.idp_slo_target_url             = "http://localhost:3000/sso/sign_out"
-    settings.idp_cert_fingerprint           = ENV['SAML_IDP_FINGERPRINT']
-    settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
-
-    settings.name_identifier_format         = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
 
     # Optional for most SAML IdPs
     settings.authn_context = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport"
