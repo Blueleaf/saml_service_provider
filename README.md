@@ -15,6 +15,6 @@ Contact vipsupport@blueleaf.com for our certificate fingerprint. The key paramet
 In plain English:
 
 * Our SSO Entity ID and target url are https://secure.blueleaf.com/sso/sign_in
-* We use SHA-256 to create a digest (fingerprint) of our certificate for verification.
-* The digest is pre-shared statically.
+* The certificate digest is pre-shared statically.
+* Use SHA-256 verify our certificate against the digest (fingerprint)
 * The NameId is stable, and is formatted as an integer.
