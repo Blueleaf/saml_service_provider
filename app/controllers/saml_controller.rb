@@ -36,6 +36,7 @@ class SamlController < ApplicationController
     settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
     settings = fetch_idp_metadata(settings)
 
+    settings.idp_cert_fingerprint = '' # ( this is copied from step 5 above )
     settings.assertion_consumer_service_url = "http://#{request.host}:3001/sso/consume"
     settings.issuer                         = "http://#{request.host}:3001/"
 
