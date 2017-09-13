@@ -2,7 +2,7 @@
 
 This is a sample application implementing Blueleaf's Single Sign-On Servie Provider specification, using Blueleaf as the Identity Provider (IdP).
 
-Contact vipsupport@blueleaf.com for our certificate fingerprint. The key parameters are as follows:
+The key parameters are as follows:
 
     settings = OneLogin::RubySaml::Settings.new
 
@@ -16,5 +16,5 @@ In plain English:
 
 * Our SSO Entity ID and target url are https://secure.blueleaf.com/sso/sign_in
 * The certificate digest is pre-shared statically.
-* Use SHA-256 to verify our certificate against the digest (fingerprint)
+* Use SHA-256 to verify our certificate against this digest: 0de3c93f93e02ad3764f9dbd21a80edac6b1521b6f78bcbfbe9558bce1226c88
 * The NameId is stable, and is formatted as an integer.
