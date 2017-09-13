@@ -12,6 +12,8 @@ The key parameters are as follows:
     settings.idp_cert_fingerprint_algorithm = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
     settings.name_identifier_format         = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
 
+Contact vipsupport@blueleaf.com with your SSO initialization endpoint, and your logo.
+
 In plain English:
 
 * Our SSO Entity ID and target url are https://secure.blueleaf.com/sso/sign_in
