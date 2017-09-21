@@ -20,3 +20,13 @@ In plain English:
 * The certificate digest is pre-shared statically.
 * Use SHA-256 to verify our certificate against the digest
 * The NameId is stable, and is formatted as an integer.
+* The authentication flow is:
+  * User logs in to Blueleaf
+  * User click on partner's logo & is redirected to partner authentication page
+  * User authenticates with partner
+  * Partner binds Blueleaf's NameId to for user to the authenticated user
+  * Partner displays or redirects user to the expected landing page
+* on future connections
+  * partner looks up user binding to Blueleaf NameId
+  * partner bypasses prompting for credentials if binding is found
+  * partner redirects user to expected landing page
