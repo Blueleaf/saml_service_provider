@@ -24,7 +24,7 @@ In plain English:
   * User logs in to Blueleaf
   * User click on partner's logo & is redirected to partner authentication page
   * User authenticates with partner
-  * Partner binds Blueleaf's NameId to for user to the authenticated user
+  * Partner binds Blueleaf's NameId to the authenticated user
   * Partner displays or redirects user to the expected landing page
 * on future connections
   * partner looks up user binding to Blueleaf NameId
